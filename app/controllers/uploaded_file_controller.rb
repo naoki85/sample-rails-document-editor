@@ -30,6 +30,15 @@ class UploadedFileController < ApplicationController
     redirect_to edit_uploaded_file_path(@uploaded_file.id)
   end
 
+  def download
+    @uploaded_file = UploadedFile.find(params[:id])
+    if File.exist?(@uploaded_file.file_path)
+      send_file @uploaded_file.file_path, x_sendfile: true
+    else
+      head :not_found
+    end
+  end
+
   private
 
   def text_file_params

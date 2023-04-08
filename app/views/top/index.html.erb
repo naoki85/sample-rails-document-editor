@@ -18,6 +18,7 @@
       <th><%= uploaded_file.id %></th>
       <th><%= uploaded_file.file_name %></th>
       <th><%= link_to "編集", edit_uploaded_file_path(uploaded_file.id) %></th>
+      <th><%= link_to "ダウンロード", download_uploaded_file_path(uploaded_file.id) %></th>
     </tr>
   <% end %>
 </table>
