@@ -1,0 +1,10 @@
+<h1>Edit</h1>
+
+<%= form_with(model: @uploaded_file, local: true) do |form| %>
+  <%= form.text_area :content, value: @content, class: 'form-textarea' %>
+  <%= form.submit 'Update' %>
+<% end %>
+
+<%= link_to "Back", root_path %>
+
+

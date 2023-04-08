@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+.form-textarea {
+    width: 90vh;
+    height: 90vh;
+}
