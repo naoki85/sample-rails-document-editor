@@ -2,8 +2,7 @@ class UploadedFileController < ApplicationController
   before_action :find_uploaded_file, only: [:edit, :update, :download]
   def create
     upload_file_param = upload_file_params[:file]
-    destination = UploadedFile.move_tempfile(upload_file_param)
-    uploaded_file = UploadedFile.new({file_type: "txt", file_name: upload_file_param.original_filename, file_path: destination})
+    uploaded_file = UploadedFile.new(UploadedFile.parse_from_upload_file(upload_file_param))
     uploaded_file.save
     redirect_to root_path
   end
