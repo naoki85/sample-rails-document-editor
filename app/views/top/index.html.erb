@@ -1,2 +1,24 @@
-<h1>Top#index</h1>
-<div id="root"></div>
+<h1>Document Editor</h1>
+
+<%= form_with(model: @text_file, url: uploaded_file_index_path, local: true) do |form| %>
+  <%= form.file_field :file %>
+  <%= form.submit 'Upload' %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <% @uploaded_files.each do |uploaded_file| %>
+    <tr>
+      <th><%= uploaded_file.id %></th>
+      <th><%= uploaded_file.file_name %></th>
+      <th></th>
+    </tr>
+  <% end %>
+</table>
+
