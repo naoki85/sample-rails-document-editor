@@ -13,8 +13,13 @@ class UploadedFileController < ApplicationController
 
   def update
     @uploaded_file.set_new_file_path!
-    File.open(@uploaded_file.file_path, 'wb') do |file|
-      file.write(uploaded_file_edit_params[:content])
+    if @uploaded_file.file_type == "txt"
+      File.open(@uploaded_file.file_path, 'wb') do |file|
+        file.write(uploaded_file_edit_params[:content])
+      end
+    else
+      result = "<html><body>#{uploaded_file_edit_params[:content]}</body></html>"
+      Htmltoword::Document.create_and_save(result, @uploaded_file.file_path)
     end
     @uploaded_file.save
     redirect_to edit_uploaded_file_path(@uploaded_file.id)

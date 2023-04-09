@@ -6,5 +6,5 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 
 document.addEventListener('DOMContentLoaded', () => {
-  root.render(<QuillEditor default_value={content} />);
+  root.render(<QuillEditor defaultValue={content} inputName={inputName} />);
 });

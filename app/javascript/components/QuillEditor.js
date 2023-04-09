@@ -4,11 +4,15 @@ import 'react-quill/dist/quill.snow.css';
 import unescapeHtml from "../libs/unescapeHTML";
 
 const QuillEditor = (props) => {
-  const delta = unescapeHtml(props.default_value);
-  const [value, setValue] = useState(props.default_value);
-  console.log(value);
+  const delta = unescapeHtml(props.defaultValue);
+  const [value, setValue] = useState(delta);
 
-  return <ReactQuill theme="snow" defaultValue={delta} onChange={setValue} />;
+  return (
+    <>
+      <ReactQuill theme="snow" defaultValue={delta} onChange={setValue} />
+      <input type={"hidden"} name={props.inputName} value={value} />
+    </>
+  );
 }
 
 export default QuillEditor;
