@@ -8,7 +8,7 @@ class UploadedFileController < ApplicationController
   end
 
   def edit
-    @content = File.read(@uploaded_file.file_path)
+    @content = @uploaded_file.read_content
   end
 
   def update

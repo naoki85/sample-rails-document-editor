@@ -14,6 +14,23 @@ class UploadedFile < ApplicationRecord
     self.file_path = new_file_path
   end
 
+  def read_content
+    if file_type == "txt"
+      File.read(file_path)
+    elsif file_type == "docx"
+      doc = Docx::Document.open(file_path)
+
+      content = ""
+      doc.paragraphs.each do |p|
+        # content = content + p.to_s + "\n"
+        content = content + p.to_html
+      end
+      content
+    else
+      raise 'invalid file type'
+    end
+  end
+
   class << self
     def move_tempfile(upload_file)
       upload_dir = "#{UPLOAD_FILE_BASE_PATH}/#{Time.new.to_i}"

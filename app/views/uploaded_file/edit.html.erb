@@ -1,10 +1,16 @@
-<h1>Edit</h1>
+<script>
+  const content = "<%= @content %>";
+</script>
 
-<%= form_with(model: @uploaded_file, local: true) do |form| %>
-  <%= form.text_area :content, value: @content, class: 'form-textarea' %>
-  <%= form.submit 'Update' %>
+<h1>Edit</h1>
+<% if @uploaded_file.file_type == "docx" %>
+  <div id="root"></div>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+<% elsif @uploaded_file.file_type == "txt" %>
+  <%= form_with(model: @uploaded_file, local: true) do |form| %>
+    <%= form.text_area :content, value: @content, class: 'form-textarea' %>
+    <%= form.submit 'Update' %>
+  <% end %>
 <% end %>
 
 <%= link_to "Back", root_path %>
-
-
