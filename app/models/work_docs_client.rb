@@ -7,6 +7,34 @@ class WorkDocsClient
     @user_email = ENV["AWS_WORKDOCS_USER_EMAIL"]
   end
 
+  def create_user(user_name, email_address, given_name, surname, password)
+    @client.create_user({
+                         organization_id: @organization_id,
+                         username: user_name, # required
+                         email_address: email_address,
+                         given_name: given_name, # required
+                         surname: surname, # required
+                         password: password, # required
+                         storage_rule: {
+                           storage_allocated_in_bytes: 1,
+                           storage_type: "QUOTA", # accepts UNLIMITED, QUOTA
+                         }
+                       })
+  end
+
+  def add_resource_permissions(document_id, user_id)
+    @client.add_resource_permissions({
+                                      resource_id: document_id, # required
+                                      principals: [ # required
+                                        {
+                                          id: user_id, # required
+                                          type: "USER", # required, accepts USER, GROUP, INVITE, ANONYMOUS, ORGANIZATION
+                                          role: "CONTRIBUTOR", # required, accepts VIEWER, CONTRIBUTOR, OWNER, COOWNER
+                                        },
+                                      ]
+                                    })
+  end
+
   def upload_file(file_name, file_path)
     parent_folder_id = get_user_root_folder_id
 

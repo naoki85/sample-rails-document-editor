@@ -1,0 +1,29 @@
+<h1>閲覧、編集は以下のリンクからお願いします</h1>
+<h2>ログイン情報</h2>
+<table>
+  <tr>
+    <th>リンク</th>
+    <td><%= link_to "Amazon WorkDocs", @workdocs_link %></td>
+  </tr>
+  <tr>
+    <th>メールアドレス</th>
+    <td><%= @shared_user_email %></td>
+  </tr>
+  <tr>
+    <th>ユーザー名</th>
+    <td><%= @shared_user %></td>
+  </tr>
+  <tr>
+    <th>パスワード</th>
+    <td><%= @shared_user_password %></td>
+  </tr>
+</table>
+<h2>ログイン方法</h2>
+<ol>
+  <li>リンク画面に遷移してください。</li>
+  <li>ログインページは 2 種類あります。 1 つ目のログイン画面では、メールアドレスを入力してください。</li>
+  <li> 2 つ目のログイン画面では、ユーザー名とパスワードを入力してください。</li>
+</ol>
+
+
+<%= link_to "Back", root_path %>

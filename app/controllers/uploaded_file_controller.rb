@@ -1,5 +1,5 @@
 class UploadedFileController < ApplicationController
-  before_action :find_uploaded_file, only: [:edit, :update, :download]
+  before_action :find_uploaded_file, only: [:edit, :update, :download, :prepare_workdocs, :show_workdocs_link]
   def create
     upload_file_param = upload_file_params[:file]
     uploaded_file = UploadedFile.new(UploadedFile.parse_from_upload_file(upload_file_param))
@@ -15,6 +15,20 @@ class UploadedFileController < ApplicationController
 
   def edit
     @content = File.read(@uploaded_file.file_path)
+  end
+
+  def prepare_workdocs
+    # TODO: ユーザーを作成する
+    # 対象のオブジェクトに共有設定をする
+    redirect_to show_workdocs_link_uploaded_file_path(@uploaded_file.id)
+  end
+
+  def show_workdocs_link
+    @workdocs_link = "https://#{ENV['AWS_WORKDOCS_WORKSPACE_NAME']}.awsapps.com/workdocs/index.html#/document/#{@uploaded_file.workdocs_document_id}"
+    # TODO: ユーザーに紐づく、 WorkDocs ユーザーを応答する
+    @shared_user = ENV['AWS_WORKDOCS_SHARED_USER']
+    @shared_user_email = ENV['AWS_WORKDOCS_SHARED_USER_EMAIL']
+    @shared_user_password = ENV['AWS_WORKDOCS_SHARED_USER_PASSWORD']
   end
 
   def update

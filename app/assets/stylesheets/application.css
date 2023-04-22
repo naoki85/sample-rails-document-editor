@@ -18,3 +18,18 @@
     width: 90vh;
     height: 90vh;
 }
+
+.button-link {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    font-family: inherit;
+    font-size: inherit;
+    color: blue; /* ここでリンクの色を指定 */
+    text-decoration: underline; /* テキストの下線を追加 */
+    cursor: pointer;
+}
+
+.button-link:hover {
+    color: darkblue; /* ここでマウスオーバー時の色を指定 */
+}
