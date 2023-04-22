@@ -19,7 +19,9 @@ class UploadedFileController < ApplicationController
 
   def prepare_workdocs
     # TODO: ユーザーを作成する
-    # 対象のオブジェクトに共有設定をする
+    user_id = ENV['AWS_WORKDOCS_SHARED_USER_ID']
+    workdocs = WorkDocsClient.new
+    workdocs.add_resource_permissions(@uploaded_file.workdocs_document_id, user_id)
     redirect_to show_workdocs_link_uploaded_file_path(@uploaded_file.id)
   end
 
