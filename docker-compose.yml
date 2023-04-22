@@ -6,5 +6,6 @@ services:
     stdin_open: true
     volumes:
       - .:/myapp
+      - ~/.aws/workdocs:/root/.aws/credentials:ro
     ports:
       - "3000:3000"

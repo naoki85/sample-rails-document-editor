@@ -22,5 +22,11 @@ class UploadedFile < ApplicationRecord
       FileUtils.mv(upload_file.tempfile, destination)
       destination
     end
+
+    def parse_from_upload_file(upload_file)
+      destination = self.move_tempfile(upload_file)
+      file_type = upload_file.original_filename.split(".")[-1]
+      {file_type: file_type, file_name: upload_file.original_filename, file_path: destination}
+    end
   end
 end
