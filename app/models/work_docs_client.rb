@@ -1,5 +1,13 @@
 class WorkDocsClient
   REGION = 'ap-northeast-1'
+  CONTENT_TYPES = {
+    "doc" => "application/msword",
+    "docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "xls"  => "application/vnd.ms-excel",
+    "xlsx" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "ppt"  => "application/vnd.ms-powerpoint",
+    "pptx" => "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+  }
 
   def initialize
     @client = Aws::WorkDocs::Client.new(region: REGION)
@@ -35,13 +43,13 @@ class WorkDocsClient
                                     })
   end
 
-  def upload_file(file_name, file_path)
+  def upload_file(file_name, file_path, file_type)
     parent_folder_id = get_user_root_folder_id
 
     response = @client.initiate_document_version_upload(
       name: file_name,
       parent_folder_id: parent_folder_id,
-      content_type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      content_type: CONTENT_TYPES[file_type]
     )
 
     upload_url = response.upload_metadata.upload_url

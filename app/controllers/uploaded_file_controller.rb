@@ -5,7 +5,7 @@ class UploadedFileController < ApplicationController
     uploaded_file = UploadedFile.new(UploadedFile.parse_from_upload_file(upload_file_param))
     if uploaded_file[:file_type] != 'txt'
       workdocs = WorkDocsClient.new
-      res = workdocs.upload_file(uploaded_file[:file_name], uploaded_file[:file_path])
+      res = workdocs.upload_file(uploaded_file[:file_name], uploaded_file[:file_path], uploaded_file[:file_type])
       uploaded_file.workdocs_document_id = res[:document_id]
       uploaded_file.workdocs_document_version_id = res[:document_version_id]
     end
