@@ -5,7 +5,9 @@ class UploadedFileController < ApplicationController
     uploaded_file = UploadedFile.new(UploadedFile.parse_from_upload_file(upload_file_param))
     if uploaded_file[:file_type] != 'txt'
       workdocs = WorkDocsClient.new
-      workdocs.upload_file(uploaded_file[:file_name], uploaded_file[:file_path])
+      res = workdocs.upload_file(uploaded_file[:file_name], uploaded_file[:file_path])
+      uploaded_file.workdocs_document_id = res[:document_id]
+      uploaded_file.workdocs_document_version_id = res[:document_version_id]
     end
     uploaded_file.save
     redirect_to root_path
@@ -25,6 +27,11 @@ class UploadedFileController < ApplicationController
   end
 
   def download
+    if @uploaded_file.file_type != "txt"
+      workdocs = WorkDocsClient.new
+      workdocs.download_file(@uploaded_file.workdocs_document_id, @uploaded_file.workdocs_document_version_id, @uploaded_file.file_path)
+    end
+
     if File.exist?(@uploaded_file.file_path)
       send_file @uploaded_file.file_path, x_sendfile: true
     else
