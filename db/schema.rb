@@ -15,6 +15,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_08_071906) do
     t.string "file_type", default: "", null: false
     t.string "file_name", default: "", null: false
     t.string "file_path", default: "", null: false
+    t.string "workdocs_document_id", default: "", null: false
+    t.string "workdocs_document_version_id", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

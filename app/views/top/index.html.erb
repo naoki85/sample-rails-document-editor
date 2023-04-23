@@ -17,7 +17,15 @@
     <tr>
       <th><%= uploaded_file.id %></th>
       <th><%= uploaded_file.file_name %></th>
-      <th><%= link_to "編集", edit_uploaded_file_path(uploaded_file.id) %></th>
+      <th>
+        <% if uploaded_file.file_type == "txt" %>
+          <%= link_to "編集", edit_uploaded_file_path(uploaded_file.id) %>
+        <% else %>
+          <%= form_with url: prepare_workdocs_uploaded_file_path(uploaded_file.id), method: :post, local: true do |form| %>
+            <%= form.submit '編集', class: 'button-link' %>
+          <% end %>
+        <% end %>
+      </th>
       <th><%= link_to "ダウンロード", download_uploaded_file_path(uploaded_file.id) %></th>
     </tr>
   <% end %>
