@@ -1,0 +1,15 @@
+.git/
+.gitignore
+.dockerignore
+log/
+tmp/
+.DS_Store
+.idea/
+.vscode/
+public/assets/
+public/packs/
+public/packs-test/
+node_modules/
+yarn-error.log
+test/
+spec/

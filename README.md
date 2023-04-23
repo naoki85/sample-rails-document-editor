@@ -44,3 +44,9 @@ $ docker-compose up -d
 ```
 $ docker-compose down
 ```
+
+## 本番用のビルド
+
+```
+$ docker-compose -f docker-compose.production.yml build
+```
