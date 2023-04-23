@@ -1,24 +1,46 @@
-# README
+# sample-rails-document-editor
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 準備
 
-Things you may want to cover:
+### AWS での作業
 
-* Ruby version
+[Amazon WorkDocs](https://aws.amazon.com/jp/workdocs/) を利用しています。  
+まずはコンソールから WorkDocs のサイトを作成してください。  
+また、 `AmazonWorkDocsFullAccess` ポリシーをアタッチした IAM ユーザーを作成してください。  
 
-* System dependencies
+### 設定値の作成
 
-* Configuration
+IAM ユーザーのアクセストークンを、 `~/.aws/workdocs` というファイル名で保存してください。  
+Docker 利用時にそのファイルをマウントします。  
+  
+また、 `.env` ファイルを作成し、以下の情報を入力してください。
 
-* Database creation
+```
+AWS_WORKDOCS_ORGANIZATION_ID=<組織ID。AWS のディレクトリサービスにアクセスすると確認可能>
+AWS_WORKDOCS_WORKSPACE_NAME=<WorkDocs で作成したサイトの識別子>
+AWS_WORKDOCS_USER_EMAIL=<WorkDocs の管理ユーザーのメールアドレス>
+AWS_WORKDOCS_SHARED_USER=<WorkDocs の一般ユーザーの名前>
+AWS_WORKDOCS_SHARED_USER_EMAIL=<WorkDocs の一般ユーザーのメールアドレス>
+AWS_WORKDOCS_SHARED_USER_PASSWORD=<WorkDocs の一般ユーザーのパスワード>
+AWS_WORKDOCS_SHARED_USER_ID=<WorkDocs の一般ユーザーの ID>
+```
 
-* Database initialization
+### ビルド
 
-* How to run the test suite
+```
+$ docker-compose build
+$ docker-compose run --rm web /bin/rails db:migrate
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## 開始
 
-* Deployment instructions
+```
+$ docker-compose up -d
+```
+[http://localhost:3000](http://localhost:3000) にアクセスしてください。
 
-* ...
+## 終了
+
+```
+$ docker-compose down
+```
